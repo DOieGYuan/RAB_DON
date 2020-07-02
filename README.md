@@ -60,7 +60,39 @@ qiime dada2 denoise-paired \
 --p-trunc-len-f 220 \
 --p-trunc-len-r 220 \
 --p-n-threads 64 \
---o-table table.dada2.qza \
---o-representative-sequences rep-set.dada2.qza \
+--o-table dada2_table.qza \
+--o-representative-sequences dada2_rep_set.qza \
 --o-denoising-stats stats.dada2.qza
+
+# feature table summaries
+qiime feature-table summarize \
+  --i-table dada2_table.qza \
+  --o-visualization dada2_table.qzv \
+  --m-sample-metadata-file metadata.tsv
+qiime tools view dada2_table.qzv
+
+qiime feature-table tabulate-seqs \
+  --i-data dada2_rep_set.qza \
+  --o-visualization dada2_rep_set.qzv
+qiime tools view dada2_rep_set.qzv
+
+# Generate a tree for phylogenetic diversity analyses
+qiime fragment-insertion sepp \
+  --i-representative-sequences dada2_rep_set.qza \
+  --i-reference-database sepp-refs-gg-13-8.qza \
+  --o-tree tree.qza \
+  --o-placements tree_placements.qza \
+  --p-threads 64
+  
+# Alpha Rarefaction and Selecting a Rarefaction Depth  
+  qiime diversity alpha-rarefaction \
+  --i-table dada2_table.qza \
+  --i-phylogeny tree.qza \
+  --m-metadata-file metadata.tsv \
+  --p-metrics observed_otus shannon faith_pd chao1 \
+  --o-visualization alpha_rarefaction_curves.qzv \
+  --p-min-depth 25 \
+  --p-steps 20 \
+  --p-max-depth 15000
+qiime tools view alpha_rarefaction_curves.qzv
 ```
