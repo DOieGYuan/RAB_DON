@@ -10,7 +10,7 @@ conda install -c bioconda fastqc trimmomatic
 ```
 ### 16S rRNA genes sequencing processing
 Please follow the instructions [here](https://docs.qiime2.org/2020.6/install/) to install the amazing QIIME2 platform.  
-Also, the insertion tree file and database (Green Gene and SILVA) have to be [downloaded](https://docs.qiime2.org/2020.6/data-resources/).
+Also, the insertion tree file and databases (i.e., Green Gene and SILVA databases) have to be [downloaded](https://docs.qiime2.org/2020.6/data-resources/).
 ### Assembly
 ```
 conda install -c bioconda spades quast
@@ -95,4 +95,51 @@ qiime fragment-insertion sepp \
   --p-steps 20 \
   --p-max-depth 15000
 qiime tools view alpha_rarefaction_curves.qzv
+
+# Diversity analysis
+qiime diversity core-metrics-phylogenetic \
+  --i-table dada2_table.qza \
+  --i-phylogeny tree.qza \
+  --m-metadata-file metadata.tsv \
+  --p-sampling-depth 14968 \
+  --p-n-jobs 12 \
+  --output-dir ./core-metrics-results
+  
+  qiime tools view core-metrics-results/weighted_unifrac_emperor.qzv
+
+qiime diversity beta-group-significance \
+  --i-distance-matrix core-metrics-results/weighted_unifrac_distance_matrix.qza \
+  --m-metadata-file metadata.tsv \
+  --m-metadata-column type \
+  --p-method permanova \
+  --o-visualization core-metrics-results/weighted-unifrac-type-permanova-significance.qzv
+qiime tools view core-metrics-results/weighted-unifrac-type-permanova-significance.qzv
+
+qiime diversity beta-group-significance \
+  --i-distance-matrix core-metrics-results/weighted_unifrac_distance_matrix.qza \
+  --m-metadata-file metadata.tsv \
+  --m-metadata-column source \
+  --p-method permanova \
+  --o-visualization core-metrics-results/weighted-unifrac-source-permanova-significance.qzv
+qiime tools view core-metrics-results/weighted-unifrac-source-permanova-significance.qzv
+
+qiime diversity adonis \
+  --i-distance-matrix core-metrics-results/weighted_unifrac_distance_matrix.qza \
+  --m-metadata-file metadata.tsv \
+  --o-visualization core-metrics-results/weighted_adonis.qzv \
+  --p-formula type+source
+qiime tools view core-metrics-results/weighted_adonis.qzv
+
+# Taxonomic classification
+qiime feature-classifier classify-sklearn \
+  --i-reads dada2_rep_set.qza \
+  --i-classifier /media/linyuan/HD_Files/Database/qiime2_db/pretrained_classifier/classifier.qza \
+  --o-classification taxonomy_pretrained.qza
+qiime taxa barplot \
+  --i-table dada2_table.qza \
+  --i-taxonomy taxonomy_pretrained.qza \
+  --m-metadata-file metadata.tsv \
+  --o-visualization taxa_pretrained_barplot.qzv
+qiime tools view taxa_pretrained_barplot.qzv
 ```
+Export all the .tsv files when visulization. Or, skip this step by just downloading from [here].  
