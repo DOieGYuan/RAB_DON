@@ -1,16 +1,23 @@
 # RAB_DON
 Raw data and source code for reproducing the results in our paper
-## Install dependencies
-All the processes were performed on ubuntu 18.04LTS OS.
+## Data
+Raw 16S rRNA genes and shotgun sequencing reads are deposited in NCBI SRA: [download]().  
+Metadata, proccessed ASV table and genomes information are available in [Metadata]().  
+  
+**We welcome readers to reproduce the results in our paper and the following are the core Bioinformatics steps in this work:**  
+*PS: Additional codes not list are available in [AddCode]()*  
+  
+## Dependencies
+All the processes were performed on ubuntu 18.04LTS OS.  
 We recommond using [Anaconda](https://www.anaconda.com/) to install all the dependencies.   
-At least 256GB RAM for completely finish the whole pipeline.
+At least 256GB RAM for the whole pipeline.
 ### Quality control
 ```
 conda install -c bioconda fastqc trimmomatic
 ```
 ### 16S rRNA genes sequencing processing
 Please follow the instructions [here](https://docs.qiime2.org/2020.6/install/) to install the amazing QIIME2 platform.  
-Also, the insertion tree file and databases (i.e., Green Gene and SILVA databases) have to be [downloaded](https://docs.qiime2.org/2020.6/data-resources/).
+Also, the insertion tree file and databases (i.e., Green Gene and SILVA databases) have to be [downloaded](https://docs.qiime2.org/2020.6/data-resources/).  
 ### Assembly
 ```
 conda install -c bioconda spades quast
@@ -35,14 +42,18 @@ conda install -c bioconda gtdbtk
 ```
 ### Functional annotation
 ```
-conda install -c bioconda enrichm hmmer diamond
+conda install -c bioconda enrichm hmmer diamond blast
 ```
 ### R packages
 * DESeq2
 * vegan
 * tidyverse
 * ggpubr
+
 ## Amplicon sequencing data processing
+First import all the reads in fastq into qiime2-readable .qza files using [manifest.AB.txt]() and [manifest.NS.txt]().  
+Remember to change the **absolute-path** to the directory with all fastq files in your own system.  
+The following codes are the example used in our study.
 ```
 # Import fastq as qza
 qiime tools import \
@@ -143,3 +154,12 @@ qiime taxa barplot \
 qiime tools view taxa_pretrained_barplot.qzv
 ```
 Export all the .tsv files when visulization. Or, skip this step by just downloading from [here].  
+
+## Shotgun sequencing data processing
+### Quality control
+Please refer to [QC section](https://github.com/DOieGYuan/DPRS_with_HMs#quality-control-1) in our previous work. 
+### Assembly
+### Binning
+### Calculate the MAG coverage (abundance)
+
+## Link ASVs with MAGs
