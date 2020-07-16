@@ -1,4 +1,4 @@
-setwd("D:/OneDrive/Study/paper/Algae biofim is promising to reduce dissolved organic nitrogen/FT/MFAassign")
+setwd("[Directory with curated formula information files]")
 
 library(tidyverse)
 library(stringr)
