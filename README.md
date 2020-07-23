@@ -3,10 +3,10 @@ Raw data and source code for reproducing the results in our paper
 ## Data
 Raw 16S rRNA genes and shotgun sequencing reads are deposited in NCBI SRA: [download]().  
 Metadata, proccessed ASV table and genomes information are available in [Metadata]().  
-  
+
 **We welcome readers to reproduce the results in our paper and the following are the core Bioinformatics steps in this work:**  
 *PS: Additional codes not list are available in [AddCode]()*  
-  
+
 ## Dependencies
 All the processes were performed on ubuntu 18.04LTS OS.  
 We recommond using [Anaconda](https://www.anaconda.com/) to install all the dependencies.   
@@ -94,7 +94,7 @@ qiime fragment-insertion sepp \
   --o-tree tree.qza \
   --o-placements tree_placements.qza \
   --p-threads 64
-  
+
 # Alpha Rarefaction and Selecting a Rarefaction Depth  
   qiime diversity alpha-rarefaction \
   --i-table dada2_table.qza \
@@ -112,10 +112,10 @@ qiime diversity core-metrics-phylogenetic \
   --i-table dada2_table.qza \
   --i-phylogeny tree.qza \
   --m-metadata-file metadata.tsv \
-  --p-sampling-depth 14968 \
+  --p-sampling-depth 15000 \
   --p-n-jobs 12 \
   --output-dir ./core-metrics-results
-  
+
   qiime tools view core-metrics-results/weighted_unifrac_emperor.qzv
 
 qiime diversity beta-group-significance \
@@ -154,10 +154,11 @@ qiime taxa barplot \
 qiime tools view taxa_pretrained_barplot.qzv
 ```
 Export all the .tsv files when visulization. Or, skip this step by just downloading from [here].  
+Use plot_alpha_diversity.R, plot_beta_diversity.R and plot_taxonomy.R to plot Figure 3a, 3b and 3c, respectively.  
 
 ## Shotgun sequencing data processing
 ### Quality control
-Please refer to [QC section](https://github.com/DOieGYuan/DPRS_with_HMs#quality-control-1) in our previous work. 
+Please refer to [QC section](https://github.com/DOieGYuan/DPRS_with_HMs#quality-control-1) in our previous work.
 ### Assembly
 ### Binning
 ### Calculate the MAG coverage (abundance)
