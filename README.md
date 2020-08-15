@@ -144,7 +144,7 @@ qiime tools view core-metrics-results/weighted_adonis.qzv
 # Taxonomic classification
 qiime feature-classifier classify-sklearn \
   --i-reads dada2_rep_set.qza \
-  --i-classifier /media/linyuan/HD_Files/Database/qiime2_db/pretrained_classifier/classifier.qza \
+  --i-classifier classifier.qza \
   --o-classification taxonomy_pretrained.qza
 qiime taxa barplot \
   --i-table dada2_table.qza \
