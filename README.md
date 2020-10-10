@@ -160,7 +160,23 @@ Use plot_alpha_diversity.R, plot_beta_diversity.R and plot_taxonomy.R to plot Fi
 ### Quality control
 Please refer to [QC section](https://github.com/DOieGYuan/DPRS_with_HMs#quality-control-1) in our previous work.
 ### Assembly
+```
+zcat AB1_?_1.fq.gz > AB1_1.fastq
+zcat AB1_?_2.fq.gz > AB1_2.fastq
+zcat AB2_?_1.fq.gz > AB2_1.fastq
+zcat AB2_?_2.fq.gz > AB2_2.fastq
+zcat AS_?_1.fq.gz > AS_1.fastq
+zcat AS_?_2.fq.gz > AS_2.fastq
+spades.py	-o ./spades_assembly_AB1 --meta -1 AB1_1.fastq	-2	AB1_2.fastq	-t	32	-m	1000
+spades.py	-o ./spades_assembly_AB2 --meta -1 AB2_1.fastq	-2	AB2_2.fastq	-t	32	-m	1000
+spades.py	-o ./spades_assembly_AS --meta -1 AS_1.fastq	-2	AS_2.fastq	-t	32	-m	1000
+```
 ### Binning
+```
+./binning_wf.sh ./spades_assembly_AB1
+./binning_wf.sh ./spades_assembly_AB2
+./binning_wf.sh ./spades_assembly_AS
+```
 ### Calculate the MAG coverage (abundance)
 
 ## Link ASVs with MAGs
