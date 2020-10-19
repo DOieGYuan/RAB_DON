@@ -2,10 +2,10 @@
 Raw data and source code for reproducing the results in our paper
 ## Data
 Raw 16S rRNA genes and shotgun sequencing reads are deposited in NCBI SRA: [download]().  
-Metadata, proccessed ASV table and genomes information are available in [Metadata]().  
+Metagenomic-assembled genomes are available in [MAGs](https://github.com/DOieGYuan/RAB_DON/tree/master/MAGs).  
 
 **We welcome readers to reproduce the results in our paper and the following are the core Bioinformatics steps in this work:**  
-*PS: Additional codes not list are available in [AddCode]()*  
+*PS: Additional codes not list are available in [AdditionalCode](https://github.com/DOieGYuan/RAB_DON/tree/master/AdditionalCodes)*  
 
 ## Dependencies
 All the processes were performed on ubuntu 18.04LTS OS.  
@@ -49,6 +49,7 @@ conda install -c bioconda enrichm hmmer diamond blast
 * vegan
 * tidyverse
 * ggpubr
+* agricolae
 
 ## Amplicon sequencing data processing
 First import all the reads in fastq into qiime2-readable .qza files using [manifest.AB.txt]() and [manifest.NS.txt]().  
