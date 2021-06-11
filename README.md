@@ -1,7 +1,7 @@
 # RAB_DON
-Raw data and source code for reproducing the results in our paper
+Raw data and source code for reproducing the results in our [paper](https://pubs.acs.org/doi/10.1021/acs.est.0c06915).
 ## Data
-Raw 16S rRNA genes and shotgun sequencing reads are deposited in NCBI SRA: [download]().  
+Raw 16S rRNA genes and shotgun sequencing reads are deposited in NCBI SRA: [download](https://dataview.ncbi.nlm.nih.gov/object/PRJNA644022).  
 Metagenomic-assembled genomes are available in [MAGs](https://github.com/DOieGYuan/RAB_DON/tree/master/MAGs).  
 
 **We welcome readers to reproduce the results in our paper and the following are the core Bioinformatics steps in this work:**  
